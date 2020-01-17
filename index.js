@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 // SANDBOX
 // put anything here for testing/prototyping/whatever purposes
 
@@ -10,7 +12,7 @@ const errorExamples = require('./src/errorExamples');
 const regexExamples = require('./src/regexExamples');
 const requestExamples = require('./src/requestExamples');
 const configExamples = require('./src/configExamples');
-const stringExamples = require('./src/stringExamples')
+const stringExamples = require('./src/stringExamples');
 
 console.log('=== Welcome to Brian\'s Sandbox! ===');
 

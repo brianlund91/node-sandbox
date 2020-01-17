@@ -12,4 +12,4 @@ function pathExample() {
 
 module.exports = {
   pathExample,
-}
+};

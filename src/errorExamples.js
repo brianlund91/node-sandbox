@@ -1,16 +1,16 @@
 function errorPropertiesTest() {
-  console.log("Enter errorPropertiesTest()");
+  console.log('Enter errorPropertiesTest()');
   const err = new Error('this is an error, obv');
   console.log('err:', err);
   console.log('err.message:', err.message);
-  const obj = {error: err, msg: 'additional info'};
+  const obj = { error: err, msg: 'additional info' };
   console.log('obj:', obj);
   if (obj.hasOwnProperty('msg')) console.log(obj.msg);
   if (err.hasOwnProperty('msg')) console.log(err.msg);
   if (err.custom) console.log(1, err.custom);
   err.custom = 'custom error field';
   if (err.custom) console.log(2, err.custom);
-  console.log("Enter errorPropertiesTest()");
+  console.log('Enter errorPropertiesTest()');
 }
 
 function stackTraceTest() {
@@ -45,5 +45,5 @@ function throwError() {
 module.exports = {
   errorPropertiesTest,
   stackTraceTest,
-  finallyTest
+  finallyTest,
 };

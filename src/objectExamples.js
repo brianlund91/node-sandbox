@@ -1,22 +1,22 @@
 const _ = require('lodash');
 
 const myObject = {
-  'name': 'Brian',
-  'age': 27,
-  'hobbies': [
+  name: 'Brian',
+  age: 27,
+  hobbies: [
     'basketball',
     'video games',
   ],
-  'college': {
-    'name': 'CSU',
-    'location': 'Fort Collins'
+  college: {
+    name: 'CSU',
+    location: 'Fort Collins',
   },
-  'employed': true,
-}
+  employed: true,
+};
 
-const brian = {'name': 'Brian', 'age': 27};
-const mim = {'name': 'Mim', 'age': 25};
-const chris = {'name': 'Chris', 'age': 37};
+const brian = { name: 'Brian', age: 27 };
+const mim = { name: 'Mim', age: 25 };
+const chris = { name: 'Chris', age: 37 };
 const team = [brian, mim, chris];
 
 function printAllAttributes() {
@@ -55,7 +55,7 @@ function printAllAttributes() {
 }
 
 function printTeamMemberNames() {
-  const teamMemberNames = team.map(member => member.name);
+  const teamMemberNames = team.map((member) => member.name);
   console.log('teamMemberNames: ', teamMemberNames);
 }
 
@@ -82,4 +82,4 @@ module.exports = {
   printTeamMemberNames,
   printOwnPropertyNames,
   printUndefinedPropeties,
-}
+};

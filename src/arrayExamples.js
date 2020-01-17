@@ -1,6 +1,6 @@
 function isArrayTest() {
   const myArray = [1, 2, 3];
-  const myObject = {'name': 'Brian'}
+  const myObject = { name: 'Brian' };
 
   // typeof is not good enough, type is object
   // console.log('myArray: ', myArray, '(type=', typeof myArray, ')');
@@ -15,4 +15,4 @@ function isArrayTest() {
 
 module.exports = {
   isArrayTest,
-}
+};

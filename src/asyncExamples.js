@@ -1,109 +1,109 @@
 const pWaitFor = require('p-wait-for');
 
-function returnDelayedPromise(success=true, sleep=1000) {
+function returnDelayedPromise(success = true, sleep = 1000) {
   console.log(`Enter returnDelayedPromise(${success}, ${sleep})`);
   // simple resolved promise with delay:
   // new Promise(resolve => setTimeout(() => resolve(stuff), 1000)
   // OR
   // new Promise(resolve => setTimeout(resolve, 10))
-  return new Promise(function(resolve, reject) {
+  return new Promise(((resolve, reject) => {
     // resolve after a timeout of 1 second
     setTimeout(() => {
       console.log(`Exit returnDelayedPromise(${success}, ${sleep})`);
       if (success) resolve();
-      else reject(new Error("Rejected Promise"));
+      else reject(new Error('Rejected Promise'));
     }, sleep);
-  });
+  }));
 }
 
 function waitOneSecondCallback(callback) {
-  console.log("Enter waitOneSecondCallback()");
+  console.log('Enter waitOneSecondCallback()');
   // callback after a timeout of 1 second
   setTimeout(() => {
-    console.log("Exit waitOneSecondCallback()");
+    console.log('Exit waitOneSecondCallback()');
     callback();
   }, 1000);
 }
 
 function callbackExample() {
-  console.log("Enter callbackExample()");
-  waitOneSecondCallback(() => console.log("callbackExample: Woohoo"));
-  console.log("Exit callbackExample()");
+  console.log('Enter callbackExample()');
+  waitOneSecondCallback(() => console.log('callbackExample: Woohoo'));
+  console.log('Exit callbackExample()');
 }
 
-function promiseHandlingExample(success=true) {
-  console.log("Enter promiseHandlingExample()");
+function promiseHandlingExample(success = true) {
+  console.log('Enter promiseHandlingExample()');
   returnDelayedPromise(success)
-    .then(() => console.log("promiseHandlingExample: Success!"))
-    .catch((err) => console.log("promiseHandlingExample: Something went wrong: ", err));
-  console.log("Exit promiseHandlingExample()");
+    .then(() => console.log('promiseHandlingExample: Success!'))
+    .catch((err) => console.log('promiseHandlingExample: Something went wrong: ', err));
+  console.log('Exit promiseHandlingExample()');
 }
 
-async function awaitExample(success=true) {
+async function awaitExample(success = true) {
   console.log(`Enter awaitExample(${success})`);
   try {
     await returnDelayedPromise(success);
-    console.log("awaitExample: Yay!")
+    console.log('awaitExample: Yay!');
   } catch (err) {
-    console.log("awaitExample: Bad news ", err)
+    console.log('awaitExample: Bad news ', err);
   }
   console.log(`Exit awaitExample(${success})`);
 }
 
 async function awaitUnhandledPromiseRejectionExample() {
-  console.log(`Enter awaitUnhandledPromiseRejectionExample()`);
+  console.log('Enter awaitUnhandledPromiseRejectionExample()');
   await returnDelayedPromise(false);
-  console.log(`Exit awaitUnhandledPromiseRejectionExample()`);
+  console.log('Exit awaitUnhandledPromiseRejectionExample()');
 }
 
 function timeoutPromise() {
-  console.log("Before timeout");
-  new Promise(function(resolve, reject) {
+  console.log('Before timeout');
+  new Promise(((resolve, reject) => {
     // resolve after a timeout of 1 second
     setTimeout(() => resolve(1), 1000);
-  }).then(function(result) {
-    console.log("After timeout");
+  })).then((result) => {
+    console.log('After timeout');
   });
 
-  console.log("Next operation");
+  console.log('Next operation');
 }
 
 function promiseRejectTest() {
-  console.log("Enter promiseRejectTest()");
-  Promise.reject("error")
+  console.log('Enter promiseRejectTest()');
+  Promise.reject('error')
     .then(() => {
-      console.log("Success");
+      console.log('Success');
     }).catch((error) => {
-      console.log("Error: ", error);
+      console.log('Error: ', error);
     });
-  console.log("Exit promiseRejectTest()");
+  console.log('Exit promiseRejectTest()');
 }
 
 function promiseRejectNoHandlerTest() {
-  console.log("Enter promiseRejectNoHandlerTest()");
-  Promise.reject("error")
+  console.log('Enter promiseRejectNoHandlerTest()');
+  Promise.reject('error')
     .then(() => {
-      console.log("Success");
+      console.log('Success');
     });
   // expect UnhandledPromiseRejectionWarning
-  console.log("Exit promiseRejectNoHandlerTest()");
+  console.log('Exit promiseRejectNoHandlerTest()');
 }
 
 function promiseErrorInHandlerTest() {
-  console.log("Enter promiseErrorInHandlerTest()");
+  console.log('Enter promiseErrorInHandlerTest()');
   Promise.resolve()
     .then(() => {
       // force error
-      throw new Error("oh no");
+      throw new Error('oh no');
     }).catch((error) => {
       // expect error to be caught here
-      console.log("Error handled in .catch: ", error);
+      console.log('Error handled in .catch: ', error);
     });
-  console.log("Exit promiseErrorInHandlerTest()");
+  console.log('Exit promiseErrorInHandlerTest()');
 }
 
 function promiseChainExample() {
-  return returnDelayedPromise().then(() => true)
+  return returnDelayedPromise().then(() => true);
 }
 
 async function awaitPromiseChainExample() {
@@ -115,12 +115,12 @@ function pollingWithIntervalExample() {
   // NOTE: setInterval can get messy if the time it takes
   // an async function to complete is > the interval
   // because the function will be started again before completing
-  console.log('Enter pollingWithIntervalExample()')
+  console.log('Enter pollingWithIntervalExample()');
   // varying sleepTimes, simulating unpredictible response times from async functions
   const waitTimes = [1000, 10000, 100, 4000, 500];
   const maxRetries = waitTimes.length;
   let retryCount = 0;
-  let intervalId = setInterval(async () => {
+  const intervalId = setInterval(async () => {
     const sleep = waitTimes[retryCount];
     console.log(`Start interval function (retryCount=${retryCount}, sleep=${sleep})`);
     if (retryCount >= maxRetries) {
@@ -133,7 +133,7 @@ function pollingWithIntervalExample() {
     await returnDelayedPromise(true, sleep);
     console.log(`End interval function (retryCount=${retryCount}, sleep=${sleep})`);
   }, 3000);
-  console.log('Exit pollingWithIntervalExample()')
+  console.log('Exit pollingWithIntervalExample()');
 }
 
 async function pollingWithTimeoutExample() {
@@ -141,7 +141,7 @@ async function pollingWithTimeoutExample() {
   // to complete before sleeping, cuasing the interval to be
   // greater than expected, but ensuring completion
   // TODO: make this await-able? (wrap in Promise?)
-  console.log('Enter pollingWithTimeoutExample()')
+  console.log('Enter pollingWithTimeoutExample()');
   // varying sleepTimes, simulating unpredictible response times from async functions
   const waitTimes = [1000, 10000, 100, 4000, 500];
   const maxRetries = waitTimes.length - 1;
@@ -157,17 +157,17 @@ async function pollingWithTimeoutExample() {
     }
     retryCount++;
     console.log(`End timeout function (retryCount=${retryCount}, sleep=${sleep})`);
-    console.log('wait 3 seconds before trying again...')
+    console.log('wait 3 seconds before trying again...');
     setTimeout(check, 3000);
   };
   check();
-  console.log('Exit pollingWithTimeoutExample()')
+  console.log('Exit pollingWithTimeoutExample()');
 }
 
 async function pollingWithWaitForHelperExample() {
   // NOTE: the p-wait-for function gives us an optional
   // interval and timeout, all wrapped in a promise
-  console.log('Enter pollingWithWaitForHelperExample()')
+  console.log('Enter pollingWithWaitForHelperExample()');
   // varying sleepTimes, simulating unpredictible response times from async functions
   const waitTimes = [1000, 10000, 100, 4000, 500];
   const maxRetries = waitTimes.length - 1;
@@ -183,11 +183,11 @@ async function pollingWithWaitForHelperExample() {
     }
     retryCount++;
     console.log(`End pWaitFor function (retryCount=${retryCount}, sleep=${sleep})`);
-    console.log('wait 3 seconds before trying again...')
+    console.log('wait 3 seconds before trying again...');
     return false; // continue
   // }, { interval: 3000 });
   }, { interval: 3000, timeout: 10000 }); // optional timeout
-  console.log('Exit pollingWithWaitForHelperExample()')
+  console.log('Exit pollingWithWaitForHelperExample()');
 }
 
 /**
@@ -204,23 +204,23 @@ async function pollingWithWaitForHelperExample() {
  *      });
  */
 function promiseTimeout(ms, promise) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(((resolve, reject) => {
     // create a timeout to reject promise if not resolved
-    var timer = setTimeout(function() {
-        reject(new Error("promise timeout"));
+    const timer = setTimeout(() => {
+      reject(new Error('promise timeout'));
     }, ms);
 
     promise
-        .then(function(res){
-            clearTimeout(timer);
-            resolve(res);
-        })
-        .catch(function(err){
-            clearTimeout(timer);
-            reject(err);
-        });
-  });
-};
+      .then((res) => {
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  }));
+}
 
 async function testPromiseTimeout() {
   const promise = returnDelayedPromise(true, 2000);
@@ -228,7 +228,7 @@ async function testPromiseTimeout() {
     await promiseTimeout(1000, promise);
     console.log('Promise completed before timeout!');
   } catch (error) {
-    console.log('Promise timed out!')
+    console.log('Promise timed out!');
   }
 }
 
@@ -247,5 +247,5 @@ module.exports = {
   pollingWithTimeoutExample,
   pollingWithWaitForHelperExample,
   promiseTimeout,
-  testPromiseTimeout
-}
+  testPromiseTimeout,
+};

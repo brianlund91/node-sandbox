@@ -1,15 +1,15 @@
 function splitStringAfterWord(phrase, splitter) {
-  console.log(`splitStringAfterWord(phrase=${phrase}, splitter=${splitter})`)
+  console.log(`splitStringAfterWord(phrase=${phrase}, splitter=${splitter})`);
   if (!phrase.includes(splitter)) {
-    console.warn(splitter + ' not found in phrase: ' + phrase)
-    return
+    console.warn(`${splitter} not found in phrase: ${phrase}`);
+    return;
   }
   const index = phrase.indexOf(splitter) + splitter.length;
   const part1 = phrase.substring(0, index);
   console.log('part1:', part1);
   const part2 = phrase.substring(index);
   console.log('part2:', part2);
-  return [part1, part2]
+  return [part1, part2];
 }
 
 function splitStringAfterWordTest1() {
@@ -48,5 +48,5 @@ function runAllTests() {
 
 module.exports = {
   splitStringOnWord: splitStringAfterWord,
-  runAllTests
-}
+  runAllTests,
+};
