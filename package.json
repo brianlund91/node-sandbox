@@ -1,0 +1,27 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "javascript/node sandbox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/brianlund91/node-sandbox.git"
+  },
+  "author": "blund05@msn.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brianlund91/node-sandbox/issues"
+  },
+  "homepage": "https://github.com/brianlund91/node-sandbox#readme",
+  "devDependencies": {
+    "config": "^3.2.5",
+    "lodash": "^4.17.15",
+    "p-wait-for": "^3.1.0",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  }
+}
